@@ -20,7 +20,7 @@ for i = 1:n
 end
 for j = 2:n
     for i = 1:n-j+1
-        p(i, j) = ((x0-x(i))*p(i+j-1, j-1) - (x0-x(i+j-1))*p(i, j-1))/(x(i+j-1)-x(i));
+        p(i,j) = ((x0-x(i)) * p(i+1,j-1) - (x0-x(i+j-1)) * p(i,j-1)) / (x(i+j-1)-x(i));
     end
 end
-disp(p);
+disp(p(1,n));
