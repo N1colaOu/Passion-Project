@@ -14,7 +14,7 @@ coeff = 4;   %physical coefficient (0; 1(+-1)]
 %%-----------End of editable input data
 
 
-%function that calculates the second derivative at point x and t
+%function that calculates the second derivative at points x and t
 function res = uxx(u, x, t) 
     res = (u(x+1, t) - 2*u(x, t) + u(x-1, t));
 end
