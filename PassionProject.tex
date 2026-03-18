@@ -12,16 +12,14 @@
 \begin{document}
 
 \maketitle
+\tableofcontents
 
 \section{Introduction}
-This is a passion project of mine, where I go out of my way to educate myself. I have been reading about numerical differentiation, approximation etc. Based on the things, that I have read, I am making programs with no real application, other than to get acquainted with numerical methods. My goal is that this knowledge will come in help later down the line in my educational/professional life. With that in mind this document will contain information about the different programs, that I have made, and maybe some comments about the work, put in them.\\
-\textbf{Contains: }
-\begin{itemize}
-    \item Euler Approximation Method MATLAB
-    \item RK2 Approximation Method MATLAB
-    \item RK4 Approximation Method MATLAB
-    \item 1-D Simplified Heat Equation MATLAB
-\end{itemize}
+This is a passion project of mine, where I go out of my way to educate myself.
+I have been reading about numerical differentiation, approximation etc.
+Based on the things, that I have read, I am making programs with no real application, other than to get acquainted with numerical methods.
+My goal is that this knowledge will come in help later down the line in my educational/professional life.
+With that in mind this document will contain information about the different programs, that I have made, and maybe some comments about the work, put in them.\\
 \section{Euler Approximation Method}
 This method is used to numerically solve first order differential equations of this type: $y' = f(x, y)$.
 Using the following property of the derivative we can approximate the original function for very small intervals $x - x_0 = h \rightarrow0$:
@@ -169,6 +167,71 @@ We repeat this algorithm for as long as we want. With the logic ready, all that 
 \caption{Evolution in time for $\alpha = 1.5$}
 \end{figure}
 Naturally if we increase the constant, the desired results appear faster and with lower amount of iterations. The problem arises, if we increase the constant too much without readjusting the other input parameters. The result diverges into nonsensical values, which are a result of not respecting the limit for the stability of the solution: $\alpha \leq \frac{dx^2}{2dt}$.
+
+
+\section{Neville Interpolation}
+This section focuses on one algorithm, used for interpolation.
+Neville's algorithm requires as input a vector of $x$ and a vector of $y$ data, as well as a starting $x_0$ point.
+The data corresponds to a set of points on the cartesian plane.
+What comes as output is the predicted $y_0$ value at the $x_0$ coordinate.
+The predicition is based on a polynomial function with a degree one less than the size of the data set.
+The algorithm recursively approximates each time a higher order polynomial to fit all points from the set.
+The recursive formula is as follows:
+\begin{equation*}
+    P_{i, j} = \frac{(x_0 - x_i)*P_{i+1,j-1} - (x_0 - x_{i+j-1})*P_{i, j-1}}{x_{i+j-1} - x_i}
+\end{equation*}
+That is the equation for the algorithm, implemented in MATLAB.
+The theory behind is more complicated. Let us look at an example with only 3 points.
+\begin{equation*}
+    x = [1, 2, 3] \hspace{1cm} y = [1, 4, 9]
+\end{equation*}
+We want to find the value at $x_0 = 2.5$.
+The start values are $P_{i, 0} = y_i$. That approximates the polynomial to a constant function.
+Of course that is far from ideal as shown in Figure \ref{fig:neville_const}. 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{neville_3p_const.jpg}
+    \caption{Constant Approximation}
+    \label{fig:neville_const}
+\end{figure}
+Using the algorithm again we get the following 2 values: $P_{1, 2} = 5.5$ and $P_{2, 2} = 6.5$.
+If instead of $x_0$ we just use $x$ as a variable we get not values but 2 line equations: $P_{1, 2} = 3x-2$ and $P_{2, 2} = 5x -6$.
+The lines are closer but still not good enough, as seen in Figure \ref{fig:neville_lin}.
+\begin{figure}
+    \centering
+    \includegraphics[width=1\linewidth]{neville_3p_lin.jpg}
+    \caption{Linear Approximation}
+    \label{fig:neville_lin}
+\end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\linewidth]{neville_3p_qudr.jpg}
+    \caption{Quadratic Approximation}
+    \label{fig:neville_qudr}
+\end{figure}
+\newpage
+Doing this one last time we get the final $P_{1, 3} = 6.25$.
+If we used the $x$ instead of $x_0$ we get the polynomial: $P_{1, 3} = x^2$. If we substitute with $x_0$
+we get the value which our algorithm would have given, as illustrated in Figure \ref{fig:neville_qudr}.
+This can be summarized very nicely in a table: \\
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline 
+        &j=1&j=2&j=3\\ \hline
+    i=1&$P_{1, 1} = 1$&$P_{1, 2} = 5.5$&$P_{1, 3} = 6.25$ \\
+    i=2&$P_{2, 1} = 4$ & $P_{2, 2} = 6.5$ & X \\
+    i=3&$P_{3, 1} = 9$ & X & X \\   
+    \hline 
+    \end{tabular} 
+    \caption{Table Representaiton of Neville's Algorithm}   
+    \label{table:neville_tbl}
+\end{table}
+
+
+
+
+\section{Trapezoidal Integration}
 
 \section{References WIP}
 \begin{itemize}
