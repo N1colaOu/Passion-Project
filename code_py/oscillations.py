@@ -52,4 +52,4 @@ def update(frame):
     return line,
 ani = animation.FuncAnimation(fig=fig, func=update, frames=N, interval=30)
 plt.show()
-ani.save("oscillation.gif", writer=animation.PillowWriter(fps=30))
+#ani.save("oscillation.gif", writer=animation.PillowWriter(fps=30))
