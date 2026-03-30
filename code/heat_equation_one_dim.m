@@ -10,7 +10,7 @@ t_max = 30; %s
 T0 = randi(4, 1, N); %inital distribution
 T0(1) = 2;   %boundary condition
 T0(N) = 2;   %boundary condition
-coeff = 4;   %physical coefficient (0; 1(+-1)]                                                 
+coeff = 1;   %physical coefficient (0; 1(+-1)]                                                 
 %%-----------End of editable input data
 
 
