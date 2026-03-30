@@ -24,7 +24,7 @@ function res = u_next(u, x, t0, u_t)
 end
 
 n_t = N*2;
-n_x = length(T0);
+n_x = N;
 u = zeros(n_x, n_t);
 u(:, 1) = T0;
 dt = t_max/n_t; %step size in t
