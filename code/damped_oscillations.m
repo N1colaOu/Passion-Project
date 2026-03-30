@@ -20,15 +20,22 @@ if  p < w % complex case, aka under-damped
     A = sqrt(c1^2 + c2^2);
     Phi = -atan(c2/c1);
     x = exp(-p*t)*A.*cos(gamma*t+Phi);
+    name = 'Under-Damped Oscilations';
 elseif p > w % real case with diff roots over-damped
     a = -p;
     b = sqrt(p^2-w^2);
     B = (a*x0+b*x0-v0)/(2*b);
     A = (b*x0-a*x0+v0)/(2*b);
     x = A*exp((a+b)*t) + B*exp((a-b)*t);
+    name = 'Over-Damped Oscilations';
 else % p = w critically damped
     A = x0;
     B = v0+p*A;
     x = A*exp(-p*t) + B.*t.*exp(-p*t);
+    name = 'Critically-Damped Oscilations';
 end
-plot(t, x);
+plot(t, x, 'LineWidth', 3.4);
+xlabel('time [s]', 'FontSize', 20);
+ylabel('position in time [m]', 'FontSize', 20);
+title(name, 'FontSize', 20);
+legend('x(t)', fontsize = 30);
