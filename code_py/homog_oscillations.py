@@ -40,6 +40,7 @@ x_max = x[np.argmax(x)]
 x_min = x[np.argmin(x)]
 line, = ax.plot([], [], lw = 2) 
 ax.set(xlim=[t_min, t_max], ylim=[x_min, x_max], xlabel='Time [s]', ylabel='Position [m]', title = name)
+ax.legend([line, line],["w = " + str(w), "p = " + str(p)])
 xdata, ydata = [], [] 
 def update(frame):
     if frame == 0:
